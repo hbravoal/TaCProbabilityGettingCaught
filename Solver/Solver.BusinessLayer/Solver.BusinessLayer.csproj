@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Solver.BusinessLayer.Contracts\Solver.BusinessLayer.Contracts.csproj" />
     <ProjectReference Include="..\Solver.Entities\Solver.Entities.csproj" />
   </ItemGroup>
