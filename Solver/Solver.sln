@@ -15,6 +15,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solver.DataAccessLayer", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solver.DataAccessLayer.Contracts", "Solver.DataAccessLayer.Contracts\Solver.DataAccessLayer.Contracts.csproj", "{1909114A-AA96-4DF7-A436-D73BE4BC9C62}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solver.Common", "Solver.Common\Solver.Common.csproj", "{EEEA64FF-B929-4904-A73E-B8CA373C6CFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solver.BusinessLayer.Contracts", "Solver.BusinessLayer.Contracts\Solver.BusinessLayer.Contracts.csproj", "{67113997-0117-4972-8358-1A8645AF592C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{1909114A-AA96-4DF7-A436-D73BE4BC9C62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1909114A-AA96-4DF7-A436-D73BE4BC9C62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1909114A-AA96-4DF7-A436-D73BE4BC9C62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEEA64FF-B929-4904-A73E-B8CA373C6CFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEEA64FF-B929-4904-A73E-B8CA373C6CFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEEA64FF-B929-4904-A73E-B8CA373C6CFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEEA64FF-B929-4904-A73E-B8CA373C6CFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67113997-0117-4972-8358-1A8645AF592C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67113997-0117-4972-8358-1A8645AF592C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67113997-0117-4972-8358-1A8645AF592C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67113997-0117-4972-8358-1A8645AF592C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
