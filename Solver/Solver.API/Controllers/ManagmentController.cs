@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Solver.BusinessLayer.Services;
 
 namespace Solver.API.Controllers
 {
@@ -8,7 +9,13 @@ namespace Solver.API.Controllers
     [ApiController]
     public class ManagmentController : ControllerBase
     {
-        // GET: api/Managment
+        //private readonly IUploadServices uploadServices;
+
+        //public ManagmentController(IUploadServices uploadServices)
+        //{
+        //    this.uploadServices = uploadServices;
+        //}
+
         [HttpGet]
         public IEnumerable<string> Get()
         {
@@ -23,10 +30,13 @@ namespace Solver.API.Controllers
         }
 
         // POST: api/Managment
-        [HttpPost]
-        public void Post([FromBody] string value)
+        
+        [HttpPost, DisableRequestSizeLimit]
+        public ActionResult Upload()
         {
-            IFormFile t=Request.Form.Files[0];
+            var solve= Request.Form.Files[0];
+            //this.uploadServices.Load(Request.Form.Files[0]);
+            return new JsonResult("s");
         }
 
         // PUT: api/Managment/5

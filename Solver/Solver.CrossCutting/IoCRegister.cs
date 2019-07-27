@@ -3,6 +3,7 @@
     using System;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
+    using Solver.BusinessLayer.Services;
     using Solver.DataAccessLayer;
 
     public static class IoCRegister
@@ -58,9 +59,9 @@
 
         public static IServiceCollection AddTransientServices(IServiceCollection services)
         {
-            
-            #region IAccountService
 
+            #region IAccountService
+            services.AddTransient<IUploadServices, BusinessLayer.Providers.TechnicalTest.UploadServices>();
             //services.AddTransient<Func<string, IAccountService>>(serviceProvider => provider =>
             //{
             //    if (!string.IsNullOrEmpty(provider))
