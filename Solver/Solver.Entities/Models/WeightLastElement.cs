@@ -1,23 +1,20 @@
 ﻿using Solver.DataAccessLayer.Contracts.Required;
-//using Newtonsoft.Json;    
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text;
+
 namespace Solver.Entities.Models
 {
-   public class Elements : IEntity
+    public class WeightLastElement : IEntity
     {
         [Key]
 
         public int Id { get; set; }
-        
-        public int Quantity { get; set; }
 
         public DateTime CreateDate { get; set; }
+        public int Weight { get; set; }
 
-        public virtual WorkingDays WorkingDays { get; set; }
-
-        public virtual List<WeightLastElement> WeightLastElements{ get; set; }
-
+        public virtual Elements Element { get; set; }
     }
 }

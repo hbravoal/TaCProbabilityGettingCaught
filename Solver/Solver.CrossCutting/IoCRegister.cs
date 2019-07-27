@@ -61,10 +61,11 @@
         {
 
             #region IAccountService
-            services.AddTransient<IUploadServices, BusinessLayer.Providers.TechnicalTest.UploadServices>();
-            services.AddTransient<IReadService, BusinessLayer.Providers.TechnicalTest.ReadFileService>();
+            services.AddTransient<IUploadService, BusinessLayer.Providers.TechnicalTest.UploadService>();
+            services.AddTransient<IReadFileService, BusinessLayer.Providers.TechnicalTest.ReadFileService>();
             services.AddTransient<IManagmentService, BusinessLayer.Providers.TechnicalTest.ManagmentService>();
-            
+            services.AddTransient<IValidateFileService, BusinessLayer.Providers.TechnicalTest.ValidateFileService>();
+
             //services.AddTransient<Func<string, IAccountService>>(serviceProvider => provider =>
             //{
             //    if (!string.IsNullOrEmpty(provider))

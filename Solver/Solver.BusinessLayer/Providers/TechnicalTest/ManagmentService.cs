@@ -1,31 +1,42 @@
 ﻿using Solver.BusinessLayer.Services;
 using Solver.Common.Models;
 using Solver.Entities.Models;
-using System.Collections.Generic;
 
 namespace Solver.BusinessLayer.Providers.TechnicalTest
 {
     public class ManagmentService : IManagmentService
     {
-        private readonly IUploadServices uploadServices;
-        private readonly IReadService readService;
+        #region Properties
+        private readonly IUploadService uploadServices;
+        private readonly IReadFileService readService;
+        private readonly IValidateFileService validateFileService;
+        #endregion
 
-        public ManagmentService(IUploadServices uploadServices, IReadService readService)
+        #region Constructor
+        public ManagmentService(IUploadService uploadServices, IReadFileService readService, IValidateFileService validateFileService)
         {
             this.uploadServices = uploadServices;
             this.readService = readService;
+            this.validateFileService = validateFileService;
         }
+        #endregion
+
+        #region Implements
         public Response<bool> ProcessTest(Microsoft.AspNetCore.Http.IFormFile file, string identification)
         {
-
-            Response<string> responseUpload= uploadServices.Load(file);
+            
+            Response<string> responseUpload = uploadServices.Load(file);
 
             if (responseUpload.IsSuccess)
             {
-                Response<WorkingDays> responseRead= readService.Read(responseUpload.Result);
-
+                Response<bool> resultValidate = this.validateFileService.Validate(responseUpload.Result);
+                if (resultValidate.IsSuccess)
+                {
+                    Response<WorkingDays> response = this.readService.Read(responseUpload.Result);
+                }
             }
             return new Response<bool>();
-        }
+        } 
+        #endregion
     }
 }

@@ -1,13 +1,12 @@
 ﻿using Solver.Common.Models;
-using Solver.Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Solver.BusinessLayer.Services
 {
-    public interface IReadService
+    public interface IUploadService
     {
-        Response<WorkingDays> Read(string FilePath);
+         Response<string> Load(Microsoft.AspNetCore.Http.IFormFile file);
     }
 }
