@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:64360/',
-  ProxyUpload : 'api/Managment/Upload'
+  baseUrl: 'https://localhost:44300/',
+  ProxyUpload : 'api/Managment/UploadFile'
 };
 
 /*
