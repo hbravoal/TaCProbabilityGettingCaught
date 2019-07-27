@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/Services/api.service';
 import { HttpEventType } from '@angular/common/http';
+import { TestFormRequest } from 'src/app/Models/test-form-model';
 
 @Component({
   selector: 'app-home',
@@ -14,29 +15,37 @@ export class HomeComponent implements OnInit {
   public progress: number;
   public message: string;
   formTest: FormGroup;
+
+  testFormRequest : TestFormRequest = {
+    Identification : undefined,
+    formFile: undefined,
+    
+  };
   constructor(private apiService: ApiService) { 
 
     this.formTest = new FormGroup({
-      'Identification' : new FormControl('', [Validators.required])
+      'Identification' : new FormControl('', [Validators.required]),
+      'fileData': new FormControl(null, [Validators.required])
     });
+    
   }
 
   ngOnInit() {
   }
-
-  upload(files) {
-    if (files.length === 0)
-      return;
-
+  onFileSelect(event) {
+    if (event.target.files.length > 0) {
+      const file = event.target.files[0];
+      this.formTest.get('fileData').setValue(file);
+    }
+  }
+  onSubmit() {
+    
+    this.testFormRequest.Identification= (this.formTest.get('Identification').value);
     const formData = new FormData();
-
-    for (let file of files)
-      formData.append(file.name, file);
-
-    // const uploadReq = new HttpRequest('POST', `api/upload`, formData, {
-    //   reportProgress: true,
-    // });
-
+    formData.append('file', this.formTest.get('fileData').value);    
+    formData.append('Identification', this.formTest.get('Identification').value);    
+    console.log(formData);
+  this.testFormRequest.formFile= formData;
     this.apiService.UploadFile(formData).subscribe(event => {
       if (event.type === HttpEventType.UploadProgress)
         this.progress = Math.round(100 * event.loaded / event.total);
