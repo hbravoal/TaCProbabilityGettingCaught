@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>7c8de1b4-db61-4510-8d38-4acd8e80ee93</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,11 +12,11 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.1.1" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Solver.BusinessLayer\Solver.BusinessLayer.csproj" />
     <ProjectReference Include="..\Solver.CrossCutting\Solver.CrossCutting.csproj" />
   </ItemGroup>
 

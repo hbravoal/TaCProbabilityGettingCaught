@@ -32,7 +32,7 @@
         {
             
             services.AddDbContext<ApplicationDataContext>(options =>
-            options.UseSqlServer(DefaultConnection, b => b.MigrationsAssembly("Solver.API")), ServiceLifetime.Transient);
+            options.UseSqlServer(DefaultConnection, b => b.MigrationsAssembly("Solver.APIClient")), ServiceLifetime.Transient);
 
             return services;
         }

@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Solver.CrossCutting;
 
-namespace Solver.API
+namespace Solver.APIClient
 {
     public class Startup
     {
@@ -27,6 +27,7 @@ namespace Solver.API
         public void ConfigureServices(IServiceCollection services)
         {
             IoCRegister.AddDbContext(services, this.Configuration.GetConnectionString("DefaultConnection"));
+            IoCRegister.AddTransientServices(services);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

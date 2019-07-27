@@ -9,6 +9,8 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
 {
     public class UploadServices : IUploadServices
     {
+   
+        
         public Response<bool> Load(Microsoft.AspNetCore.Http.IFormFile file )
         {
             try
