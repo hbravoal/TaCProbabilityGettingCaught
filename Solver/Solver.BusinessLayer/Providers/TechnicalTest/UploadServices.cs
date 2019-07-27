@@ -9,15 +9,16 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
 {
     public class UploadServices : IUploadServices
     {
-        private readonly IReadService readService;
+   
 
-        public UploadServices(IReadService readService)
+        /// <summary>
+        /// Sube el archivo al servidor y retorna la Ruta completa de éste.
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
+        public Response<string> Load(Microsoft.AspNetCore.Http.IFormFile file)
         {
-            this.readService = readService;
-        }
-        public Response<bool> Load(Microsoft.AspNetCore.Http.IFormFile file)
-        {
-            Response<bool> response = new Response<bool>
+            Response<string> response = new Response<string>
             {
                 IsSuccess = false
             };
@@ -36,15 +37,15 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
                 if (file.Length > 0)
                 {
                     string fileName = System.Net.Http.Headers.ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                    fullPath = Path.Combine(newPath, fileName);
+                    fullPath = Path.Combine(newPath, DateTime.Now.ToString("Hmmss")+fileName);
                     using (var stream = new FileStream(fullPath, FileMode.Create))
                     {
                         file.CopyTo(stream);
                         response.IsSuccess = true;
                         response.Message.Add(new MessageResult { Message = "Se ha guardado Archivo correctamente." });
+                        response.Result = fullPath;
                     }
                 }
-                readService.Read(fullPath);
             }
             catch (System.Exception ex)
             {

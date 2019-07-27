@@ -13,7 +13,7 @@ namespace Solver.Entities.Models
         public int Id { get; set; }
 
         public DateTime CreateDate { get; set; }
-        public int WorkDays { get; set; }
+        public int DayToWork { get; set; }
 
         public virtual List<Elements>Elements{ get; set; }
     }
