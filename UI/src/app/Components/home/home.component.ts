@@ -16,11 +16,6 @@ export class HomeComponent implements OnInit {
   public message: string;
   formTest: FormGroup;
 
-  testFormRequest : TestFormRequest = {
-    Identification : undefined,
-    formFile: undefined,
-    
-  };
   constructor(private apiService: ApiService) { 
 
     this.formTest = new FormGroup({
@@ -40,12 +35,12 @@ export class HomeComponent implements OnInit {
   }
   onSubmit() {
     
-    this.testFormRequest.Identification= (this.formTest.get('Identification').value);
+    
     const formData = new FormData();
     formData.append('file', this.formTest.get('fileData').value);    
     formData.append('Identification', this.formTest.get('Identification').value);    
-    console.log(formData);
-  this.testFormRequest.formFile= formData;
+    
+  
     this.apiService.UploadFile(formData).subscribe(event => {
       if (event.type === HttpEventType.UploadProgress)
         this.progress = Math.round(100 * event.loaded / event.total);
