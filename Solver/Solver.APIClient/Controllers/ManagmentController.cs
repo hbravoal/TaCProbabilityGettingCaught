@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Solver.BusinessLayer.Services;
-using Solver.Common.Models;
 
 namespace Solver.APIClient.Controllers
 {
@@ -13,24 +7,22 @@ namespace Solver.APIClient.Controllers
     [ApiController]
     public class ManagmentController : ControllerBase
     {
-        private readonly IUploadServices uploadServices;
 
-        public ManagmentController(IUploadServices uploadServices)
+        private readonly IManagmentService managmentService;
+
+        public ManagmentController(IManagmentService managmentService)
         {
-            this.uploadServices = uploadServices;
-            
+            this.managmentService = managmentService;
+
         }
-        
+
 
         [HttpPost, DisableRequestSizeLimit]
         [Route("UploadFile")]
         public IActionResult UploadFile([FromForm] string Identification)
         {
-            
 
-
-
-            return Ok(uploadServices.Load(Request.Form.Files[0]));
+            return Ok(managmentService.ProcessTest(Request.Form.Files[0], Identification));
         }
     }
 }

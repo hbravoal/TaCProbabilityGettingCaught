@@ -7,6 +7,6 @@ namespace Solver.BusinessLayer.Services
 {
     public interface IUploadServices
     {
-         Response<bool> Load(Microsoft.AspNetCore.Http.IFormFile file);
+         Response<string> Load(Microsoft.AspNetCore.Http.IFormFile file);
     }
 }

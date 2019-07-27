@@ -1,10 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Solver.DataAccessLayer.Contracts.Contracts;
+using Solver.Entities.Models;
 
 namespace Solver.DataAccessLayer.Repository
 {
-    class TrackLogRepository
+    public class TrackLogRepository : GenericRepository<TrackLog>, ITrackLogRepository
     {
+        private readonly ApplicationDataContext context;
+
+        public TrackLogRepository(ApplicationDataContext context) : base(context)
+        {
+            this.context = context;
+        }
     }
 }
