@@ -21,11 +21,15 @@ namespace Solver.APIClient
             Configuration = configuration;
         }
 
+        
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+         
+
             IoCRegister.AddDbContext(services, this.Configuration.GetConnectionString("DefaultConnection"));
             IoCRegister.AddTransientServices(services);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -42,7 +46,8 @@ namespace Solver.APIClient
             {
                 app.UseHsts();
             }
-
+            
+            app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
             app.UseHttpsRedirection();
             app.UseMvc();
         }

@@ -12,7 +12,10 @@
         {
         }
         public virtual DbSet<WorkingDays> WorkingDays { get; set; }
-      
+        public virtual DbSet<Elements> Elements{ get; set; }
+        public virtual DbSet<TrackLog> TrackLogs{ get; set; }
+        public virtual DbSet<TrackLogDetail> TrackLogDetails{ get; set; }
+
 
 
 

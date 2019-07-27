@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Solver.Entities.Models
 {
-    class TrackLogDetail : IEntity
+    public class TrackLogDetail : IEntity
     {
         [Key]
 

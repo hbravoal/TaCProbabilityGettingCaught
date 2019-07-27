@@ -14,12 +14,11 @@ namespace Solver.Entities.Models
         public int Id { get; set; }
 
         public string  FileName{ get; set; }
+        public string Identification{ get; set; }
 
         public bool isValid { get; set; }
 
         public DateTime CreateDate { get; set; }
-
-        
 
     }
 }

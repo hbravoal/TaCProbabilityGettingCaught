@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Solver.BusinessLayer.Services;
+using Solver.Common.Models;
 
 namespace Solver.APIClient.Controllers
 {
@@ -14,22 +15,22 @@ namespace Solver.APIClient.Controllers
     {
         private readonly IUploadServices uploadServices;
 
-        public ManagmentController(IUploadServices uploadServices, IHostingEnvironment hostingEnvironment)
+        public ManagmentController(IUploadServices uploadServices)
         {
             this.uploadServices = uploadServices;
-            _hostingEnvironment = hostingEnvironment;
+            
         }
-        private IHostingEnvironment _hostingEnvironment;
-
-
+        
 
         [HttpPost, DisableRequestSizeLimit]
-        public ActionResult UploadFile()
+        [Route("UploadFile")]
+        public IActionResult UploadFile([FromForm] string Identification)
         {
-            string webRootPath = _hostingEnvironment.WebRootPath;
-            var ps = Request.Form.Files[0];
-            uploadServices.Load(Request.Form.Files[0]);
-            return new JsonResult("");
+            
+
+
+
+            return Ok(uploadServices.Load(Request.Form.Files[0]));
         }
     }
 }
