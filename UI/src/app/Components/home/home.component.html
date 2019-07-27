@@ -1,0 +1,54 @@
+<form (ngSubmit)="Save()" [formGroup]="formTest" class=" animated fadeIn">
+    <div class="bg">
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h1>Ingresa tu código de acceso</h1>
+                            <p class="product-text text-center">Tu código de acceso lo recibirás a través de correo electrónico o mensaje de texto al cumplir tu meta personal.<br><strong>Para conocer tu meta debes revisar el correo electrónico o mensaje de texto que recibiste de AV Villas.</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-md-center">
+                        <div class="col-md-4">
+                            <div class="input">
+                                <div class="ico"><i class="material-icons">lock</i></div>
+                                <!-- <input type="number" placeholder="Ej: 00212303"> -->
+                                <input type="text" class="form-control" placeholder="Cédula" model="Identification" formControlName="Identification">
+                            </div>
+
+                            <p class="error" *ngIf="error">
+                                Ha ocurrido un error. </p>
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-md-center">
+                        <div class="col-md-12">
+                            <a class="button button-red text-light" (click)="Save()">
+                                <i class="fa " [ngClass]="{'fa fa-spinner fa-spin fa-fw': loading }"></i> INGRESAR
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<h1>File Upload Using Angular 5 and ASP.NET Core 2.1</h1>
+<input #file type="file" multiple (change)="upload(file.files)" />
+<br/>
+<span style="font-weight:bold;color:green;" *ngIf="progress > 0 && progress < 100">
+  {{progress}}%
+</span>
+
+<span style="font-weight:bold;color:green;" *ngIf="message">
+  {{message}}
+</span>
+
+<li [routerLinkActive]='["link-active"]'>
+    <a [routerLink]='["/upload"]' (click)='collapse()'>
+       <span class='glyphicon glyphicon-upload'></span> Upload
+    </a>
+ </li>
