@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Solver.BusinessLayer\Solver.BusinessLayer.csproj" />
     <ProjectReference Include="..\Solver.DataAccessLayer\Solver.DataAccessLayer.csproj" />
   </ItemGroup>
 

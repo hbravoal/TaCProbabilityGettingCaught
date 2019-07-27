@@ -3,18 +3,19 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
 namespace Solver.Entities.Models
 {
-    public class WorkingDays : IEntity
+   public class Elements : IEntity
     {
         [Key]
 
         public int Id { get; set; }
+        
+        public int Quantity { get; set; }
 
         public DateTime CreateDate { get; set; }
-        public int WorkDays { get; set; }
 
-        public virtual List<Elements>Elements{ get; set; }
+        public virtual WorkingDays WorkingDays { get; set; }
+
     }
 }
