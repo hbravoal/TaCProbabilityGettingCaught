@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Solver.CrossCutting;
 
-namespace Solver.API
+namespace Solver.APIClient
 {
     public class Startup
     {
@@ -21,12 +21,17 @@ namespace Solver.API
             Configuration = configuration;
         }
 
+        
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+         
+
             IoCRegister.AddDbContext(services, this.Configuration.GetConnectionString("DefaultConnection"));
+            IoCRegister.AddTransientServices(services);
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -41,7 +46,8 @@ namespace Solver.API
             {
                 app.UseHsts();
             }
-
+            
+            app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials());
             app.UseHttpsRedirection();
             app.UseMvc();
         }

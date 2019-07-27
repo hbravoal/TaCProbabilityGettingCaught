@@ -9,13 +9,25 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
 {
     public class UploadServices : IUploadServices
     {
-        public Response<bool> Load(Microsoft.AspNetCore.Http.IFormFile file )
+        private readonly IReadService readService;
+
+        public UploadServices(IReadService readService)
         {
+            this.readService = readService;
+        }
+        public Response<bool> Load(Microsoft.AspNetCore.Http.IFormFile file)
+        {
+            Response<bool> response = new Response<bool>
+            {
+                IsSuccess = false
+            };
+            string fullPath = string.Empty;
             try
             {
                 
-                string folderName = "Upload";
-                string webRootPath = "Path";
+
+                string folderName = "Uploads";
+                string webRootPath = "Files";                
                 string newPath = Path.Combine(webRootPath, folderName);
                 if (!Directory.Exists(newPath))
                 {
@@ -24,18 +36,21 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
                 if (file.Length > 0)
                 {
                     string fileName = System.Net.Http.Headers.ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                    string fullPath = Path.Combine(newPath, fileName);
+                    fullPath = Path.Combine(newPath, fileName);
                     using (var stream = new FileStream(fullPath, FileMode.Create))
                     {
                         file.CopyTo(stream);
+                        response.IsSuccess = true;
+                        response.Message.Add(new MessageResult { Message = "Se ha guardado Archivo correctamente." });
                     }
                 }
-                return new Response<bool>();
+                readService.Read(fullPath);
             }
             catch (System.Exception ex)
             {
-                return new Response<bool>();
+                
             }
+            return response;
         }
     }
 }

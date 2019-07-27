@@ -32,7 +32,7 @@
         {
             
             services.AddDbContext<ApplicationDataContext>(options =>
-            options.UseSqlServer(DefaultConnection, b => b.MigrationsAssembly("Solver.API")), ServiceLifetime.Transient);
+            options.UseSqlServer(DefaultConnection, b => b.MigrationsAssembly("Solver.APIClient")), ServiceLifetime.Transient);
 
             return services;
         }
@@ -62,6 +62,7 @@
 
             #region IAccountService
             services.AddTransient<IUploadServices, BusinessLayer.Providers.TechnicalTest.UploadServices>();
+            services.AddTransient<IReadService, BusinessLayer.Providers.TechnicalTest.ReadFileService>();
             //services.AddTransient<Func<string, IAccountService>>(serviceProvider => provider =>
             //{
             //    if (!string.IsNullOrEmpty(provider))
@@ -76,7 +77,7 @@
             //});
             #endregion
 
-          
+
             return services;
         }
 
