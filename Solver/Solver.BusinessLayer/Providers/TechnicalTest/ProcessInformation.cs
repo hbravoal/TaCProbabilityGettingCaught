@@ -39,7 +39,7 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
                    
                         processInformationResponse.Add(new ProcessInformationResponse
                         {
-                            Case = i,
+                            Case = i+1,
                         });
                         processInformationResponse.LastOrDefault().Detail = new List<ProcessDetailInformationResponse>();
                         List<WeightLastElement> data = new List<WeightLastElement>();

@@ -36,7 +36,7 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
                 {
                     response.IsSuccess = false;
                     response.Message.Add(new MessageResult { Message = "Solo se aceptan números enteros." });
-
+                    return response;
                 }
             }
             int elements = 0;            

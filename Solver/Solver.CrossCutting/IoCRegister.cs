@@ -69,7 +69,8 @@
             services.AddTransient<IValidateFileService, BusinessLayer.Providers.TechnicalTest.ValidateFileService>();
             services.AddTransient<IProcessInformation, BusinessLayer.Providers.TechnicalTest.ProcessInformation>();
             services.AddTransient<ITrackLogService, BusinessLayer.Providers.TechnicalTest.TrackLogService>();
-
+            services.AddTransient<IExportFileService, BusinessLayer.Providers.TechnicalTest.ExportFileService>();
+            
             //services.AddTransient<Func<string, IAccountService>>(serviceProvider => provider =>
             //{
             //    if (!string.IsNullOrEmpty(provider))

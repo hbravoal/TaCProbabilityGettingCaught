@@ -54,8 +54,6 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
                         }
                         else
                         {
-                           
-                           
                                 if (response.Result.Elements.LastOrDefault().WeightLastElements == null)
                                 {
                                     response.Result.Elements.LastOrDefault().WeightLastElements = new List<WeightLastElement>();

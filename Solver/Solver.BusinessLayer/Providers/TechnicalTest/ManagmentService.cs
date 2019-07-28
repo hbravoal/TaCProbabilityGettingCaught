@@ -14,17 +14,19 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
         private readonly IValidateFileService validateFileService;
         private readonly IProcessInformation processInformation;
         private readonly ITrackLogService trackLogService;
+        private readonly IExportFileService exportFileService;
         #endregion
 
         #region Constructor
         public ManagmentService(IUploadService uploadServices, IReadFileService readService, IValidateFileService validateFileService,
-            IProcessInformation processInformation, ITrackLogService    trackLogService)
+            IProcessInformation processInformation, ITrackLogService    trackLogService, IExportFileService exportFileService)
         {
             this.uploadServices = uploadServices;
             this.readService = readService;
             this.validateFileService = validateFileService;
             this.processInformation = processInformation;
             this.trackLogService = trackLogService;
+            this.exportFileService = exportFileService;
         }
         #endregion
 
@@ -38,8 +40,7 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
             {
                 FileName = responseUpload.Result,
                 Identification = identification
-            };
-            Response<TrackLog> responesTrack=this.trackLogService.Post(trackLog);
+            };            
             trackLog.TrackLogDetails = new List<TrackLogDetail>();
 
 
@@ -54,13 +55,14 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
                         Response<List<ProcessInformationResponse>>responseExecute= processInformation.Execute(response.Result);
                         if (responseExecute.IsSuccess)
                         {
-
+                            exportFileService.GenerateFile(responseExecute.Result);
+                            trackLog.IsValid = true;
                         }
                         else
                         {
                             trackLog.TrackLogDetails.Add(new TrackLogDetail
                             {
-                                Message = responseUpload.Message.FirstOrDefault().ToString(),
+                                Message = responseExecute.Message.FirstOrDefault().ToString(),
                             });
                         }
                     }
@@ -68,7 +70,7 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
                     {
                         trackLog.TrackLogDetails.Add(new TrackLogDetail
                         {
-                            Message = responseUpload.Message.FirstOrDefault().ToString(),
+                            Message = response.Message.FirstOrDefault().ToString(),
                         });
                     }
                 }
@@ -76,11 +78,11 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
                 {
                     trackLog.TrackLogDetails.Add(new TrackLogDetail
                     {
-                        Message = responseUpload.Message.FirstOrDefault().ToString(),
+                        Message = resultValidate.Message.FirstOrDefault().Message.ToString(),
                     });
                 }
             }
-            this.trackLogService.Put(trackLog);
+            Response<TrackLog> responesTrack = this.trackLogService.Post(trackLog);
             return new Response<bool>();
         } 
         #endregion

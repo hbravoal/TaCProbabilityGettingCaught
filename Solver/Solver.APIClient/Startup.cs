@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Solver.CrossCutting;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Solver.APIClient
 {
@@ -28,6 +29,11 @@ namespace Solver.APIClient
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "I'm Solver Documentation", Version = "v1" });
+            });
+
 
             IoCRegister.AddRepository(services);
             IoCRegister.AddDbContext(services, this.Configuration.GetConnectionString("DefaultConnection"));
@@ -38,6 +44,12 @@ namespace Solver.APIClient
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseSwagger();
+            app.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API I'm Solver ");
+
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
