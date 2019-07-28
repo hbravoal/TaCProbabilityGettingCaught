@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Solver.BusinessLayer.Contracts\Solver.BusinessLayer.Contracts.csproj" />
+    <ProjectReference Include="..\Solver.DataAccessLayer.Contracts\Solver.DataAccessLayer.Contracts.csproj" />
     <ProjectReference Include="..\Solver.Entities\Solver.Entities.csproj" />
   </ItemGroup>
 

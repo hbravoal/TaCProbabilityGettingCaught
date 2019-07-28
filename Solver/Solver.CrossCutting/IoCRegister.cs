@@ -5,12 +5,14 @@
     using Microsoft.Extensions.DependencyInjection;
     using Solver.BusinessLayer.Services;
     using Solver.DataAccessLayer;
+    using Solver.DataAccessLayer.Contracts.Contracts;
+    using Solver.DataAccessLayer.Repository;
 
     public static class IoCRegister
     {
         public static IServiceCollection AddRepository(IServiceCollection services)
         {
-            //services.AddScoped<IProgramRepository,ProgramRepository>();
+            services.AddTransient<ITrackLogRepository, TrackLogRepository>();
           
 
             return services;
@@ -66,6 +68,7 @@
             services.AddTransient<IManagmentService, BusinessLayer.Providers.TechnicalTest.ManagmentService>();
             services.AddTransient<IValidateFileService, BusinessLayer.Providers.TechnicalTest.ValidateFileService>();
             services.AddTransient<IProcessInformation, BusinessLayer.Providers.TechnicalTest.ProcessInformation>();
+            services.AddTransient<ITrackLogService, BusinessLayer.Providers.TechnicalTest.TrackLogService>();
 
             //services.AddTransient<Func<string, IAccountService>>(serviceProvider => provider =>
             //{

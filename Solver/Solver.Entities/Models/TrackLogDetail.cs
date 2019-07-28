@@ -15,10 +15,10 @@ namespace Solver.Entities.Models
 
         public string Message { get; set; }
 
-        public int RowLine{ get; set; }
+        
 
         public DateTime CreateDate { get; set; }
-
+        public virtual TrackLog TrackLog { get; set; }
 
 
     }
