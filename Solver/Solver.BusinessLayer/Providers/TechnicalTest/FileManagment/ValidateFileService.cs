@@ -1,4 +1,5 @@
-﻿using Solver.BusinessLayer.Services;
+﻿using Microsoft.Extensions.Configuration;
+using Solver.BusinessLayer.Services;
 using Solver.Common.Models;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,13 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
 {
     public class ValidateFileService : IValidateFileService
     {
+        private readonly IConfiguration configuration;
+
+        public ValidateFileService(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+            this.configuration = configuration;
+        }
         /// <summary>
         /// Método que valida la información recibida en el Archivo.
         /// </summary>
@@ -41,6 +49,16 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
                 if (i==0)
                 {
                     dayToWork = data[i];                    
+                    if (dayToWork < Convert.ToInt32(configuration["FileValidations:minDayToWork"]) || 
+                        dayToWork>Convert.ToInt32(configuration["FileValidations:maxDayToWork"]))
+                    {
+                        response.Message.Add(new MessageResult
+                        {
+                            Message =string.Format("Los días trabajados no están entre el Rango Permitido")
+                        });
+                        response.IsSuccess = false;
+                        return response;
+                    }
                 }
                 else
                 {   //Se trata de navegar entre los elementos para confirmar que contengan los productos indicados.
@@ -49,11 +67,20 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
                     try
                     {
 
-                        int test = 0;
+                        int testElementValue = 0;
                         countProducts++;
-                       
-                             test = data[i];
-                        
+                        testElementValue = data[i];
+                        if (testElementValue < Convert.ToInt32(configuration["FileValidations:minElementsToMove"]) ||
+                       testElementValue > Convert.ToInt32(configuration["FileValidations:maxElementsToMove"]))
+                        {
+                            response.Message.Add(new MessageResult
+                            {
+                                Message = string.Format("Los Elementos a mover por día no están entre el Rango Permitido")
+                            });
+                            response.IsSuccess = false;
+                            return response;
+                        }
+
                     }
                     catch (ArgumentOutOfRangeException ex)
                     {

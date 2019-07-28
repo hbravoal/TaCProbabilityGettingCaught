@@ -1,4 +1,5 @@
-﻿using Solver.BusinessLayer.Services;
+﻿using Microsoft.Extensions.Configuration;
+using Solver.BusinessLayer.Services;
 using Solver.Common.Models;
 using Solver.Entities.Models;
 using System;
@@ -9,6 +10,20 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
 {
     public class ProcessInformation : IProcessInformation
     {
+        private readonly IConfiguration configuration;
+
+        public ProcessInformation(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
+        /// <summary>
+        /// Implementación para asignar los elementos en las bolsas.
+        /// Se ordena los elementos de menor a mayor.
+        /// Se obtiene el primero (El más pesado) y se le saca cuántas veces está en el Peso mínimo a cargar
+        /// Y dependiendo el # se toma del final de la lista (Los menos Pesados) los elementos.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public Response<List<ProcessInformationResponse>> Execute(WorkingDays model)
         {
             Response<List<ProcessInformationResponse>> response = new Response<List<ProcessInformationResponse>>
@@ -42,7 +57,7 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
                             {
                                 break;
                             }
-                            if (data.FirstOrDefault().Weight > 50)
+                            if (data.FirstOrDefault().Weight > Convert.ToDecimal(this.configuration["FileValidations:GuaranteedWeight"]))
                             {
                                 topItemWeight = data.FirstOrDefault().Weight;
                                 processInformationResponse.LastOrDefault().Detail.Add(new ProcessDetailInformationResponse { TopItemWeight = topItemWeight, Quantity = 1 });
@@ -50,7 +65,7 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
                                 continue;
                             }
 
-                            decimal divide = ((decimal)50 / (decimal)data.FirstOrDefault().Weight) * 1;
+                            decimal divide = (Convert.ToDecimal(this.configuration["FileValidations:GuaranteedWeight"]) / (decimal)data.FirstOrDefault().Weight) * 1;
 
                             decimal redondeado = Math.Ceiling(divide);
 
@@ -67,7 +82,7 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
                                 }
 
                             }
-                            if (data?.FirstOrDefault()?.Weight * data.Count < 50)
+                            if (data?.FirstOrDefault()?.Weight * data.Count < Convert.ToDecimal(this.configuration["FileValidations:GuaranteedWeight"]))
                             {
                                 for (int p = 0; p < data.Count; p++)
                                 {
