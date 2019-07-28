@@ -1,23 +1,21 @@
 ﻿using Solver.Entities.Contracts;
-//using Newtonsoft.Json;    
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
+using System.Text;
 
 namespace Solver.Entities.Models
 {
-    public class TrackLog : IEntity
+    public class ProgramConfiguration : IEntity
     {
         [Key]
 
         public int Id { get; set; }
 
-        public string  FileName{ get; set; }
-        public string Identification{ get; set; }
+        public string Description { get; set; }
 
-        public bool isValid { get; set; }
-
+        public string ManagmentProvider{ get; set; }
+        public string AnalyzeFileProvider { get; set; }
         public DateTime CreateDate { get; set; }
 
     }

@@ -1,4 +1,4 @@
-﻿namespace Solver.DataAccessLayer.Contracts.Required
+﻿namespace Solver.Entities.Contracts
 {
     using System;
     public interface IEntity

@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Solver.Common\Solver.Common.csproj" />
+    <ProjectReference Include="..\Solver.Entities\Solver.Entities.csproj" />
   </ItemGroup>
 
 </Project>

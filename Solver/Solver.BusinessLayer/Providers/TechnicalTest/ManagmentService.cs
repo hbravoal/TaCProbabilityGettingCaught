@@ -1,6 +1,7 @@
 ﻿using Solver.BusinessLayer.Services;
 using Solver.Common.Models;
 using Solver.Entities.Models;
+using System.Collections.Generic;
 
 namespace Solver.BusinessLayer.Providers.TechnicalTest
 {
@@ -10,14 +11,17 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
         private readonly IUploadService uploadServices;
         private readonly IReadFileService readService;
         private readonly IValidateFileService validateFileService;
+        private readonly IProcessInformation processInformation;
         #endregion
 
         #region Constructor
-        public ManagmentService(IUploadService uploadServices, IReadFileService readService, IValidateFileService validateFileService)
+        public ManagmentService(IUploadService uploadServices, IReadFileService readService, IValidateFileService validateFileService,
+            IProcessInformation processInformation)
         {
             this.uploadServices = uploadServices;
             this.readService = readService;
             this.validateFileService = validateFileService;
+            this.processInformation = processInformation;
         }
         #endregion
 
@@ -33,6 +37,10 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
                 if (resultValidate.IsSuccess)
                 {
                     Response<WorkingDays> response = this.readService.Read(responseUpload.Result);
+                    if (response.IsSuccess)
+                    {
+                        Response<List<ProcessInformationResponse>>  responseExecute= processInformation.Execute(response.Result);
+                    }
                 }
             }
             return new Response<bool>();

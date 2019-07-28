@@ -65,6 +65,7 @@
             services.AddTransient<IReadFileService, BusinessLayer.Providers.TechnicalTest.ReadFileService>();
             services.AddTransient<IManagmentService, BusinessLayer.Providers.TechnicalTest.ManagmentService>();
             services.AddTransient<IValidateFileService, BusinessLayer.Providers.TechnicalTest.ValidateFileService>();
+            services.AddTransient<IProcessInformation, BusinessLayer.Providers.TechnicalTest.ProcessInformation>();
 
             //services.AddTransient<Func<string, IAccountService>>(serviceProvider => provider =>
             //{

@@ -20,7 +20,7 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
             Response<WorkingDays> response = new Response<WorkingDays>
             {
                 Result = new WorkingDays{Elements = new List<Elements>{}},
-                IsSuccess = false
+                IsSuccess = true
             };
             
             
@@ -60,14 +60,15 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
                                 {
                                     response.Result.Elements.LastOrDefault().WeightLastElements = new List<WeightLastElement>();
                                 }
+
                                 response.Result.Elements.LastOrDefault().WeightLastElements.Add(new WeightLastElement { Weight = dataProcessed[i] });
                                 elementsProceseed++;
-                            int elementsTo = response.Result.Elements.LastOrDefault().Quantity;
+                                int elementsTo = response.Result.Elements.LastOrDefault().Quantity;
                                 if (response.Result.Elements.LastOrDefault().Quantity == elementsProceseed)
-                            {
-                                isElement = true;
-                                elementsProceseed = 0;
-                            }
+                                {
+                                    isElement = true;
+                                    elementsProceseed = 0;
+                                }
                             
                             
                         }

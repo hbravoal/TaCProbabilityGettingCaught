@@ -1,4 +1,4 @@
-﻿using Solver.DataAccessLayer.Contracts.Required;
+﻿using Solver.Entities.Contracts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

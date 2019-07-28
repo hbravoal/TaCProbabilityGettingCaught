@@ -1,4 +1,4 @@
-﻿using Solver.DataAccessLayer.Contracts.Required;
+﻿using Solver.Entities.Contracts;
 //using Newtonsoft.Json;    
 using System;
 using System.Collections.Generic;
