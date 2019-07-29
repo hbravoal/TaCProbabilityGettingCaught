@@ -15,22 +15,44 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
         {
             this.configuration = configuration;
         }
+        /// <summary>
+        /// Genera .txt y retorna la ruta completa.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public Response<string> GenerateFile(List<ProcessInformationResponse> model)
         {
-            string docPath = string.Format("{0}{1}",Environment.CurrentDirectory,configuration["FileGenerationPath:basePath"]);
-            string docName = string.Format(configuration["FileGenerationPath:NameFile"],DateTime.Now.ToString("yyyyMMddHH"));
-            using (StreamWriter file = new StreamWriter(Path.Combine(docPath, docName), true))
+            Response<string> response = new Response<string>
             {
-                foreach (var item in model)
+                IsSuccess = false
+            };
+            try
+            {
+                string docPath = string.Format("{0}{1}", Environment.CurrentDirectory, configuration["FileGenerationPath:basePath"]);
+                string docName = string.Format(configuration["FileGenerationPath:NameFile"], DateTime.Now.ToString("yyyyMMddHH"));
+                using (StreamWriter file = new StreamWriter(Path.Combine(docPath, docName), true))
                 {
-                    List<string> items = new List<string>();
-                    string data = string.Format("Case # {0}: {1}",item.Case,item.Detail.Count);
-                    items.Add(data);
-                    string linea = string.Join("|", items.ToArray());
-                    file.WriteLine(linea);
+                    foreach (var item in model)
+                    {
+                        List<string> items = new List<string>();
+                        string data = string.Format("Case # {0}: {1}", item.Case, item.Detail.Count);
+                        items.Add(data);
+                        string linea = string.Join("|", items.ToArray());
+                        file.WriteLine(linea);
+                    }
                 }
+                response.IsSuccess = true;
+                response.Result = Path.Combine(docPath, docName);
             }
-            return new Response<string>();
+            catch (Exception ex)
+            {
+                response.Message.Add(new MessageResult
+                {
+                    Message = "Ocurrió un error generando el archivo, por favor intentar mas tarde."
+                });
+            }
+
+            return response;
         }
     }
 }

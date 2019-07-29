@@ -31,16 +31,13 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
         #endregion
 
         #region Implements
-        public Response<bool> ProcessTest(Microsoft.AspNetCore.Http.IFormFile file, string identification)
+        public Response<string> ProcessTest(Microsoft.AspNetCore.Http.IFormFile file, string identification)
         {
-            
+            Response<string> responseProcessTest = new Response<string>();
+            responseProcessTest.IsSuccess = false;
             Response<string> responseUpload = uploadServices.Load(file);
 
-            TrackLog trackLog = new TrackLog
-            {
-                FileName = responseUpload.Result,
-                Identification = identification
-            };            
+            TrackLog trackLog = new TrackLog{FileName = responseUpload.Result,Identification = identification};            
             trackLog.TrackLogDetails = new List<TrackLogDetail>();
 
 
@@ -55,35 +52,41 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
                         Response<List<ProcessInformationResponse>>responseExecute= processInformation.Execute(response.Result);
                         if (responseExecute.IsSuccess)
                         {
-                            exportFileService.GenerateFile(responseExecute.Result);
-                            trackLog.IsValid = true;
+                            Response<string>  responseGenerateFile= exportFileService.GenerateFile(responseExecute.Result);
+
+                            if (responseGenerateFile.IsSuccess)
+                            {
+                                responseProcessTest.Result = responseGenerateFile.Result;
+                                responseProcessTest.IsSuccess = true;
+                                trackLog.IsValid = true;
+                            }
+                            else
+                            {
+                                responseProcessTest.Message = new List<MessageResult> { new MessageResult { Message = "Ocurrió un error al Generar la información." } };
+                                trackLog.TrackLogDetails.Add(new TrackLogDetail { Message = responseGenerateFile.Message.FirstOrDefault().ToString() });
+                            }
+                            
                         }
                         else
                         {
-                            trackLog.TrackLogDetails.Add(new TrackLogDetail
-                            {
-                                Message = responseExecute.Message.FirstOrDefault().ToString(),
-                            });
+                            responseProcessTest.Message = new List<MessageResult> { new MessageResult { Message = "Ocurrió un error al Procesar la información." } };
+                            trackLog.TrackLogDetails.Add(new TrackLogDetail{Message = responseExecute.Message.FirstOrDefault().ToString()});
                         }
                     }
                     else
                     {
-                        trackLog.TrackLogDetails.Add(new TrackLogDetail
-                        {
-                            Message = response.Message.FirstOrDefault().ToString(),
-                        });
+                        responseProcessTest.Message = new List<MessageResult> { new MessageResult { Message = "Ocurrió un error al Leer la información." } };
+                        trackLog.TrackLogDetails.Add(new TrackLogDetail{Message = response.Message.FirstOrDefault().ToString(),});
                     }
                 }
                 else
                 {
-                    trackLog.TrackLogDetails.Add(new TrackLogDetail
-                    {
-                        Message = resultValidate.Message.FirstOrDefault().Message.ToString(),
-                    });
+                    responseProcessTest.Message = new List<MessageResult> { new MessageResult { Message = "Ocurrió un error al Validar la información." } };
+                    trackLog.TrackLogDetails.Add(new TrackLogDetail{Message = resultValidate.Message.FirstOrDefault().Message.ToString(),});
                 }
             }
             Response<TrackLog> responesTrack = this.trackLogService.Post(trackLog);
-            return new Response<bool>();
+            return responseProcessTest;
         } 
         #endregion
     }
