@@ -1,25 +1,20 @@
 ﻿using Solver.Entities.Contracts;
-//using Newtonsoft.Json;    
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
+using System.Text;
 
 namespace Solver.Entities.Models
 {
-    public class TrackLogDetail : IEntity
+    public class WeightLastElement : IEntity
     {
         [Key]
 
         public int Id { get; set; }
 
-        public string Message { get; set; }
-
-        
-
         public DateTime CreateDate { get; set; }
-        public virtual TrackLog TrackLog { get; set; }
+        public int Weight { get; set; }
 
-
+        public virtual Elements Element { get; set; }
     }
 }

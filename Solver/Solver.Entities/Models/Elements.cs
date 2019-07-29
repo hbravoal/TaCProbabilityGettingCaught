@@ -1,4 +1,5 @@
-﻿using Solver.DataAccessLayer.Contracts.Required;
+﻿
+using Solver.Entities.Contracts;
 //using Newtonsoft.Json;    
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,8 @@ namespace Solver.Entities.Models
         public DateTime CreateDate { get; set; }
 
         public virtual WorkingDays WorkingDays { get; set; }
+
+        public virtual List<WeightLastElement> WeightLastElements{ get; set; }
 
     }
 }

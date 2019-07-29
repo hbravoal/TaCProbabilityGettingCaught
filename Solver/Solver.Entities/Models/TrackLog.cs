@@ -1,4 +1,4 @@
-﻿using Solver.DataAccessLayer.Contracts.Required;
+﻿using Solver.Entities.Contracts;
 //using Newtonsoft.Json;    
 using System;
 using System.Collections.Generic;
@@ -16,9 +16,10 @@ namespace Solver.Entities.Models
         public string  FileName{ get; set; }
         public string Identification{ get; set; }
 
-        public bool isValid { get; set; }
+        public bool IsValid { get; set; }
 
         public DateTime CreateDate { get; set; }
 
+        public virtual List<TrackLogDetail> TrackLogDetails{ get; set; }
     }
 }

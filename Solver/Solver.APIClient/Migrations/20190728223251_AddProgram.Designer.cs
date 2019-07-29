@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Solver.DataAccessLayer;
 
 namespace Solver.APIClient.Migrations
 {
     [DbContext(typeof(ApplicationDataContext))]
-    partial class ApplicationDataContextModelSnapshot : ModelSnapshot
+    [Migration("20190728223251_AddProgram")]
+    partial class AddProgram
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -85,6 +87,8 @@ namespace Solver.APIClient.Migrations
                     b.Property<DateTime>("CreateDate");
 
                     b.Property<string>("Message");
+
+                    b.Property<int>("RowLine");
 
                     b.Property<int?>("TrackLogId");
 

@@ -1,5 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Protocols;
 using Solver.BusinessLayer.Services;
+using Solver.Common.Models;
+using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace Solver.APIClient.Controllers
 {
@@ -19,10 +25,22 @@ namespace Solver.APIClient.Controllers
 
         [HttpPost, DisableRequestSizeLimit]
         [Route("UploadFile")]
-        public IActionResult UploadFile([FromForm] string Identification)
+        public ActionResult UploadFile([FromForm] string Identification)
         {
+            Response<string> response = new Response<string>();
+            Response<string> managMentServiceResponse= managmentService.ProcessTest(Request.Form.Files[0], Identification);
+            if (managMentServiceResponse.IsSuccess)
+            {
 
-            return Ok(managmentService.ProcessTest(Request.Form.Files[0], Identification));
+                response.Result = managMentServiceResponse.Result;
+                response.IsSuccess = true;
+
+
+            }
+            return Ok(response);
+        
+
+
         }
     }
 }

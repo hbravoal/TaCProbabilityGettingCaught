@@ -1,8 +1,10 @@
 ﻿using Solver.Common.Models;
+using System.IO;
+
 namespace Solver.BusinessLayer.Services
 {
     public interface IManagmentService
     {
-        Response<bool> ProcessTest(Microsoft.AspNetCore.Http.IFormFile file, string identification);
+        Response<string> ProcessTest(Microsoft.AspNetCore.Http.IFormFile file, string identification);
     }
 }

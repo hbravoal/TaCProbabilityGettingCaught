@@ -10,7 +10,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Solver.BusinessLayer.Contracts\Solver.BusinessLayer.Contracts.csproj" />
+    <ProjectReference Include="..\Solver.DataAccessLayer.Contracts\Solver.DataAccessLayer.Contracts.csproj" />
     <ProjectReference Include="..\Solver.Entities\Solver.Entities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.configuration.abstractions\2.1.1\lib\netstandard2.0\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Solver.BusinessLayer.Providers.TechnicalTest
 {
-    public class UploadServices : IUploadServices
+    public class UploadService : IUploadService
     {
    
 
@@ -15,7 +15,7 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
         /// Sube el archivo al servidor y retorna la Ruta completa de éste.
         /// </summary>
         /// <param name="file"></param>
-        /// <returns></returns>
+        /// <returns>La ruta completa del archivo subido.</returns>
         public Response<string> Load(Microsoft.AspNetCore.Http.IFormFile file)
         {
             Response<string> response = new Response<string>

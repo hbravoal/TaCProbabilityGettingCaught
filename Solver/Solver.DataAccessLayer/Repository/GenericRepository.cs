@@ -11,11 +11,12 @@ namespace Solver.DataAccessLayer.Repository
     
     
     using Solver.DataAccessLayer.Contracts.Interfaces;
-    using Solver.DataAccessLayer.Contracts.Required;
+    
     using Solver.Common.Models;
     using Solver.Common.Helpers;
+    using Solver.Entities.Contracts;
 
-    public class GenericRepository<T> : IGenericRepository<T> where T : class, IEntity
+    public class GenericRepository<T> : IGenericRepository<T> where T : class,IEntity
     {
         private readonly ApplicationDataContext context;
 
