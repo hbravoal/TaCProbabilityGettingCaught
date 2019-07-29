@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   baseUrl: 'https://localhost:44300/',
+  
   ProxyUpload : 'api/Managment/UploadFile'
 };
 

@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/0a9f03a1-9097-4d4b-aa0e-ace3aeb0cf86/resourceGroups/appsvc_windows_centralus/providers/Microsoft.Web/sites/ImSolverSite",
+    "appService.deploySubpath": "UI"
+}

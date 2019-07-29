@@ -8,15 +8,20 @@ import { TestFormRequest } from '../Models/test-form-model';
 export class ApiService {
 
   constructor(private http: HttpClient) { }
-   headers = new Headers();
+   headers =   new HttpHeaders({
+    
+    responseType: 'arraybuffer'
+    
+  });
 
   UploadFile(testFormRequest: any) {
     this.headers.append('Access-Control-Allow-Headers', 'Content-Type');
     this.headers.append('Access-Control-Allow-Methods', 'POST');
     this.headers.append('Access-Control-Allow-Origin', '*');
-    return  this.http.post<any>(environment.baseUrl
+    return  this.http.post(environment.baseUrl
       + `${environment.ProxyUpload}`, testFormRequest, {
         reportProgress: true,
+        headers: this.headers
       });
     }
 }
