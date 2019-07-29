@@ -39,10 +39,12 @@ namespace Solver.BusinessLayer.Providers.TechnicalTest
                         items.Add(data);
                         string linea = string.Join("|", items.ToArray());
                         file.WriteLine(linea);
+                        
                     }
+                    file.Dispose();
                 }
                 response.IsSuccess = true;
-                response.Result = Path.Combine(docPath, docName);
+                response.Result = Path.Combine(configuration["FileGenerationPath:basePath"], docName);
             }
             catch (Exception ex)
             {

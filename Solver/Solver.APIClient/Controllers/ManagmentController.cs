@@ -25,38 +25,20 @@ namespace Solver.APIClient.Controllers
 
         [HttpPost, DisableRequestSizeLimit]
         [Route("UploadFile")]
-        public HttpResponseMessage UploadFile([FromForm] string Identification)
+        public ActionResult UploadFile([FromForm] string Identification)
         {
+            Response<string> response = new Response<string>();
             Response<string> managMentServiceResponse= managmentService.ProcessTest(Request.Form.Files[0], Identification);
             if (managMentServiceResponse.IsSuccess)
             {
-                var file = managMentServiceResponse.Result;
 
-                // Response...
-                System.Net.Mime.ContentDisposition cd = new System.Net.Mime.ContentDisposition
-                {
-                    FileName = file,
-                    Inline = true  // false = prompt the user for downloading;  true = browser to try to show the file inline
-                };
+                response.Result = managMentServiceResponse.Result;
+                response.IsSuccess = true;
 
-                HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-                var fileStream = new FileStream(file, FileMode.Open);
-                response.Content = new StreamContent(fileStream);
-                response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
-                response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
-                {
-                    FileName = file
-                };
-                return response;
 
-                
             }
-            else
-            {
-                HttpResponseMessage response = new HttpResponseMessage(HttpStatusCode.OK);
-                
-            }
-            return new HttpResponseMessage(HttpStatusCode.NotFound);
+            return Ok(response);
+        
 
 
         }

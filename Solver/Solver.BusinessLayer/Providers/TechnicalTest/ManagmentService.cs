@@ -2,6 +2,7 @@
 using Solver.Common.Models;
 using Solver.Entities.Models;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace Solver.BusinessLayer.Providers.TechnicalTest
